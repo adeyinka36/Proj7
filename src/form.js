@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Redirect,Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 import Nav from './nav'
 
@@ -23,7 +23,7 @@ class Form extends Component{
     e.preventDefault()
       console.log("handle submit")
       console.log(e.target.value)
-      this.props.onSearch(document.getElementById("search").value)      
+      this.props.onSearch(document.getElementById("search").value)            
 
       
   }

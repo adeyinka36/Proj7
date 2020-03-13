@@ -40,28 +40,27 @@ class  App extends Component {
         BestPics2019:results[0].data.photos.photo.map(result=>{return(`https://farm${result.farm}.staticflickr.com/${result.server}/${result.id}_${result.secret}.jpg`)}),
         wildlife:results[1].data.photos.photo.map(result=>{return(`https://farm${result.farm}.staticflickr.com/${result.server}/${result.id}_${result.secret}.jpg`)}),
         cars:results[2].data.photos.photo.map(result=>{return(`https://farm${result.farm}.staticflickr.com/${result.server}/${result.id}_${result.secret}.jpg`)}),
-        
+      
 
         })
         
+        this.state.loading=false
     }).catch(error=>{
       console.log("Error fetching or Pasing data   "+  error)
     })
   }
   // function for searching api
-  searchPics=(query)=>{
-    console.log(query)
+  searchPics=(query="cats")=>{
+    
+    console.log("query is "+query)
       axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${Api}&tags=${query}&per_page=24&format=json&nojsoncallback=-1`)
       .then(results=>{
-        console.log("search result")
-        console.log( results.data.photos)
-        console.log(this.state.searchedPics)
         
         this.setState({
           
           searchedPics:results.data.photos.photo.map(result=>{return(`https://farm${result.farm}.staticflickr.com/${result.server}/${result.id}_${result.secret}.jpg`)})
         })
-      
+      this.state.loading=false
       })
       .catch(error=>{
         console.log("Fecting or Parsing Error")
@@ -95,7 +94,7 @@ class  App extends Component {
           <Route   exact path="/cars" render={()=><Photos pics={this.state.cars}/>}/>
           {/* search route */}
          
-          <Route  path='/search' render={()=><Photos pics={this.state.searchedPics}/>}/>
+          <Route  exact path='/search' render={()=><Photos pics={this.state.searchedPics} loading={this.state.loading}/>}/>
         
           {/* search not fount */}
           <Route  component={NotFound}></Route>
