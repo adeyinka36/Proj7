@@ -129,8 +129,11 @@ input {
   height:44px;
 }
 .not-found{
+  display: flex;
   height:100vh;
-  background-color: black;
-  color:grey;
-  text-align: center;
+  background-color: white;
+  color: black;
+  
+  justify-content: center;
+  
 }

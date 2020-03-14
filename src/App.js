@@ -16,7 +16,6 @@ import NotFound from './notfound';
 
 class  App extends Component {
   state={
-    loading:true,
     searchedPics:[],
      BestPics2019:[],
      wildlife:[],
@@ -44,7 +43,7 @@ class  App extends Component {
 
         })
         
-        this.state.loading=false
+       
     }).catch(error=>{
       console.log("Error fetching or Pasing data   "+  error)
     })
@@ -55,12 +54,13 @@ class  App extends Component {
     console.log("query is "+query)
       axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${Api}&tags=${query}&per_page=24&format=json&nojsoncallback=-1`)
       .then(results=>{
-        
+         console.log(this.state.searchedPics)
         this.setState({
           
           searchedPics:results.data.photos.photo.map(result=>{return(`https://farm${result.farm}.staticflickr.com/${result.server}/${result.id}_${result.secret}.jpg`)})
         })
-      this.state.loading=false
+      
+      console.log(this.state.searchPics)
       })
       .catch(error=>{
         console.log("Fecting or Parsing Error")
@@ -69,7 +69,7 @@ class  App extends Component {
   }
   
   render(){
-    console.log(this.state.BestPics2019)
+
     if (this.state.cars.length<1&&this.state.searchedPics.length<1&&this.state.wildlife.length<1&&this.state.BestPics2019.length<1){
       return(
         <BrowserRouter>
